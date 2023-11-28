@@ -1,5 +1,6 @@
 package dev.j3rzy.aott.abilities;
 
+import dev.j3rzy.aott.enums.Stats;
 import dev.j3rzy.aott.item.Ability;
 import dev.j3rzy.aott.players.Players;
 import org.bukkit.ChatColor;
@@ -73,7 +74,5 @@ public class WitherImpact extends Ability {
         p.teleport(loc);
         p.setFallDistance(0);
         p.setVelocity(new Vector(0,0,0));
-
-        System.out.println(Players.INSTANCE.getPlayers());
     }
 }
