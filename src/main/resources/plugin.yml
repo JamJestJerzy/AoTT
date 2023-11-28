@@ -1,0 +1,18 @@
+name: aott
+version: '${version}'
+main: dev.j3rzy.aott.Aott
+api-version: '1.20'
+prefix: AOTT
+authors: [LifeOverflow]
+description: Aspects Of The Teleportation
+website: https://j3rzy.dev/aott
+
+commands:
+  aote:
+    description: Gives Aspect of the End
+    usage: /<command>
+    permission: aott.admin.aote
+  hyperion:
+    description: Gives hyperion
+    usage: /<command>
+    permission: aott.admin.hyperion
