@@ -15,6 +15,7 @@ public class AspectOfTheEnd extends MagicWeapon {
             Material.DIAMOND_SWORD,
             Type.SWORD, Rarity.RARE,
             "Aspect of the End",
+            List.of(new String[]{}),
             List.of(new Stat[]{
                 new Stat(Stats.DAMAGE, 100),
                 new Stat(Stats.STRENGTH, 100)

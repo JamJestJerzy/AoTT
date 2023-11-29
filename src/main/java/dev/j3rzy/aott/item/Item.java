@@ -11,27 +11,23 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MagicWeapon extends Item {
+public class Item {
     public final Material physicalItem;
     public final Type type;
     public final Rarity rarity;
     public final String name;
     public final List<String> description;
     public final List<Stat> stats;
-    public final Ability ability;
 
-    public MagicWeapon(Material physicalItem, Type type, Rarity rarity, String name, List<String> description, List<Stat> stats, Ability ability) {
-        super(physicalItem, type, rarity, name, description, stats);
+    public Item(Material physicalItem, Type type, Rarity rarity, String name, List<String> description, List<Stat> stats) {
         this.physicalItem = physicalItem;
         this.type = type;
         this.rarity = rarity;
         this.name = name;
         this.description = description;
         this.stats = stats;
-        this.ability = ability;
     }
 
-    @Override
     public ItemStack getItem() {
         ItemStack item = new ItemStack(physicalItem);
         ItemMeta itemMeta = item.getItemMeta();
@@ -45,13 +41,6 @@ public class MagicWeapon extends Item {
         lore.add("");
 
         if (!description.isEmpty()) for (String line : description) lore.add(ChatColor.RESET+line);
-
-        lore.add("");
-
-        lore.add(ChatColor.RESET+""+ChatColor.GOLD+"Ability: "+ability.name+" "+ChatColor.YELLOW+ChatColor.BOLD+ability.triggers.get(0).name().replaceFirst("^(.*)_[^_]*$", "$1").replace("_", " "));
-        for (String line : ability.description) lore.add(ChatColor.RESET+line);
-        lore.add(ChatColor.RESET+""+ChatColor.DARK_GRAY+"Mana Cost: "+ChatColor.DARK_AQUA+(int)ability.manaCost);
-        if (ability.cooldown > 0) lore.add(ChatColor.RESET+""+ChatColor.DARK_GRAY+"Cooldown: "+ChatColor.GREEN+(int)ability.cooldown+"s");
 
         lore.add("");
         lore.add(ChatColor.RESET+""+ChatColor.DARK_GRAY+"This item can be reforged!");

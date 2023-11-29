@@ -70,7 +70,7 @@ public class WitherImpact extends Ability {
             ((LivingEntity)entity).setHealth(0);
         }
 
-        if (p.getAbsorptionAmount() == absorptionAmount) p.setHealth(((p.getHealth()+((double)absorptionAmount /2)) > 20) ? 20 : p.getHealth()+((double)absorptionAmount /2)); else p.setAbsorptionAmount(absorptionAmount);
+        new WitherShield().onTrigger(event);
         p.teleport(loc);
         p.setFallDistance(0);
         p.setVelocity(new Vector(0,0,0));

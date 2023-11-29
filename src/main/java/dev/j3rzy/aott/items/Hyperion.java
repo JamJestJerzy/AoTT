@@ -7,6 +7,7 @@ import dev.j3rzy.aott.enums.Stats;
 import dev.j3rzy.aott.enums.Type;
 import dev.j3rzy.aott.item.MagicWeapon;
 import dev.j3rzy.aott.item.Stat;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
 import java.util.List;
@@ -17,6 +18,12 @@ public class Hyperion extends MagicWeapon {
             Material.IRON_SWORD,
             Type.SWORD, Rarity.LEGENDARY,
             "Hyperion",
+            List.of(new String[]{
+                ChatColor.GRAY + "Deals +" + ChatColor.GREEN + "50% " + ChatColor.GRAY + "damage to",
+                ChatColor.GRAY + "Withers. Grants " + ChatColor.RED + "+1 Damage",
+                ChatColor.GRAY + "and " + ChatColor.GREEN + "+2 " + ChatColor.AQUA + "Intelligence",
+                ChatColor.GRAY + "per " + ChatColor.RED + "Catacombs " + ChatColor.GRAY + "level."
+            }),
             List.of(new Stat[]{
                 new Stat(Stats.GEAR_SCORE, 615),
                 new Stat(Stats.DAMAGE, 260),
