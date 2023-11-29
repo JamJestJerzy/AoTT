@@ -5,6 +5,7 @@ import static dev.j3rzy.aott.Utils.pm;
 
 import dev.j3rzy.aott.commands.aote;
 import dev.j3rzy.aott.commands.hyperion;
+import dev.j3rzy.aott.events.EntityDamageByEntity;
 import dev.j3rzy.aott.events.PlayerInteract;
 import dev.j3rzy.aott.events.PlayerJoin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,6 +18,7 @@ public final class Aott extends JavaPlugin {
         /* Register events */
         pm.registerEvents(new PlayerInteract(), this);
         pm.registerEvents(new PlayerJoin(), this);
+        pm.registerEvents(new EntityDamageByEntity(), this);
 
         /* Register commands */
         Objects.requireNonNull(this.getCommand("aote")).setExecutor(new aote());

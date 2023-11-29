@@ -37,9 +37,11 @@ public class WitherImpact extends Ability {
             Action.RIGHT_CLICK_AIR,
             Action.RIGHT_CLICK_BLOCK
     });
+    private final WitherShield witherShield;
 
     public WitherImpact() {
         super(name, description, manaCost, 0, triggers);
+        witherShield = new WitherShield();
     }
 
     @Override
@@ -54,7 +56,6 @@ public class WitherImpact extends Ability {
     public void onTrigger(PlayerInteractEvent event) {
         int explosionRadius = 6;
         int explosionCount = 10;
-        int absorptionAmount = 20;
 
         Player p = event.getPlayer();
 
@@ -70,7 +71,8 @@ public class WitherImpact extends Ability {
             ((LivingEntity)entity).setHealth(0);
         }
 
-        new WitherShield().onTrigger(event);
+        witherShield.onTrigger(event);
+
         p.teleport(loc);
         p.setFallDistance(0);
         p.setVelocity(new Vector(0,0,0));

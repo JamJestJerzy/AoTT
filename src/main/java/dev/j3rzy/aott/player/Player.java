@@ -69,7 +69,7 @@ public class Player {
             absorptionAmount -= damageToAbsorptionShield;
             finalDamage -= damageToAbsorptionShield;
         }
-        if (finalDamage > 0) updateStat(Stats.HEALTH, getStat(Stats.HEALTH).value - finalDamage);
+        if (finalDamage > 0) getStat(Stats.HEALTH).setCurrentValue(getStat(Stats.HEALTH).value - finalDamage);
     }
 
     public void heal(double amount) {

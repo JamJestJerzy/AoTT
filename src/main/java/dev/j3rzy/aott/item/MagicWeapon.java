@@ -5,6 +5,7 @@ import dev.j3rzy.aott.enums.Stats;
 import dev.j3rzy.aott.enums.Type;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -44,9 +45,10 @@ public class MagicWeapon extends Item {
 
         lore.add("");
 
-        if (!description.isEmpty()) for (String line : description) lore.add(ChatColor.RESET+line);
-
-        lore.add("");
+        if (!description.isEmpty()) {
+            for (String line : description) lore.add(ChatColor.RESET+line);
+            lore.add("");
+        }
 
         lore.add(ChatColor.RESET+""+ChatColor.GOLD+"Ability: "+ability.name+" "+ChatColor.YELLOW+ChatColor.BOLD+ability.triggers.get(0).name().replaceFirst("^(.*)_[^_]*$", "$1").replace("_", " "));
         for (String line : ability.description) lore.add(ChatColor.RESET+line);
@@ -58,6 +60,7 @@ public class MagicWeapon extends Item {
         lore.add(ChatColor.RESET+""+rarity.color+ChatColor.BOLD+rarity.name+" "+type.name);
         itemMeta.setLore(lore);
         itemMeta.setUnbreakable(true);
+        itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(itemMeta);
         return item;
     }
