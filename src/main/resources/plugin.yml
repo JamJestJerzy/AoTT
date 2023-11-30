@@ -20,3 +20,7 @@ commands:
     description: Gives Wither Impact stick
     usage: /<command>
     permission: aott.admin.stick
+  fish:
+    description: Gives Water Impact fish
+    usage: /<command>
+    permission: aott.admin.fish

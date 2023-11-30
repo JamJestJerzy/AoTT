@@ -63,7 +63,7 @@ public class MagicWeapon extends Item {
             lore.add(gemstonesSlots);
         }
 
-        lore.add("");
+        lore.add("\u00a7s\u00a7t\u00a7a\u00a7t\u00a7s");
 
         if (!description.isEmpty()) {
             for (String line : description) lore.add(ChatColor.RESET+line);
@@ -76,6 +76,7 @@ public class MagicWeapon extends Item {
         if (ability.cooldown > 0) lore.add(ChatColor.RESET+""+ChatColor.DARK_GRAY+"Cooldown: "+ChatColor.GREEN+(int)ability.cooldown+"s");
 
         lore.add("");
+
         if (canBeReforged) lore.add(ChatColor.RESET+""+ChatColor.DARK_GRAY+"This item can be reforged!");
         lore.add(ChatColor.RESET+""+rarity.color+ChatColor.BOLD+rarity.name+" "+type.name);
         itemMeta.setLore(lore);

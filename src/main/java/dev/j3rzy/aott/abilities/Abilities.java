@@ -17,6 +17,7 @@ public class Abilities {
         abilities.add(new InstantTransmission());
         abilities.add(new WitherImpact());
         abilities.add(new WitherShield());
+        abilities.add(new WaterImpact());
     }
 
     public List<Ability> getAbilities() {
