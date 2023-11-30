@@ -32,4 +32,13 @@ public enum Stats {
         this.color = color;
         this.valueColor = valueColor;
     }
+
+    public static Stats getStatByName(String name) {
+        for (Stats stat : Stats.values()) {
+            if (stat.name.equalsIgnoreCase(name)) {
+                return stat;
+            }
+        }
+        return null;
+    }
 }

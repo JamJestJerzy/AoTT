@@ -2,6 +2,8 @@ package dev.j3rzy.aott.player;
 
 import dev.j3rzy.aott.enums.Stats;
 import dev.j3rzy.aott.item.Stat;
+import dev.j3rzy.aott.utils.MathUtils;
+import org.bukkit.attribute.Attribute;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +51,14 @@ public class Player {
         }
     }
 
+    public double getStatMaxValue(Stats statistic) {
+        for (PlayerStat playerStat : stats) if (playerStat.getStat() == statistic) {
+            if (playerStat.isRegenerating()) return playerStat.getMaxValue();
+            return playerStat.getValue();
+        }
+        return -1;
+    }
+
     public PlayerStat getStat(Stats statistic) {
         for (PlayerStat playerStat : stats) if (playerStat.getStat() == statistic) return playerStat;
         return null;
@@ -60,27 +70,82 @@ public class Player {
     public void setDamageReduction(double damageReduction) { this.damageReduction = damageReduction; }
 
     public double getAbsorptionAmount() { return absorptionAmount; }
-    public void addAbsorption(double amount) { absorptionAmount += amount; }
-    public void removeAbsorption(double amount) { absorptionAmount = Math.max(0, absorptionAmount - amount); }
-    public void setAbsorptionAmount(double absorptionAmount) { this.absorptionAmount = absorptionAmount; }
+    public void addAbsorption(double amount) {
+        absorptionAmount += amount;
+        updateVanillaAbsorption();
+    }
+    public void removeAbsorption(double amount) {
+        absorptionAmount = Math.max(0, absorptionAmount - amount);
+        updateVanillaAbsorption();
+    }
+    public void setAbsorptionAmount(double absorptionAmount) {
+        this.absorptionAmount = absorptionAmount;
+        updateVanillaAbsorption();
+    }
 
+    /* Health management */
     public void dealDamage(double amount) {
+        if (player.isDead()) return;
         PlayerStat health = getStat(Stats.HEALTH);
         double playerDefence = getStat(Stats.DEFENSE).getValue();
-        double finalDamage = amount * (1 - ((playerDefence > 0) ? (playerDefence / (playerDefence + 100)) : 1)) * (1-getDamageReduction());
+        double finalDamage = amount * ((playerDefence > 0) ? (playerDefence / (playerDefence + 100)) : 1) * (1-getDamageReduction());
         if (absorptionAmount > 0) {
             double damageToAbsorptionShield = Math.min(finalDamage, absorptionAmount);
             absorptionAmount -= damageToAbsorptionShield;
             finalDamage -= damageToAbsorptionShield;
         }
         if (finalDamage > 0) health.setValue(Math.max(0, health.getValue() - finalDamage));
+        updateVanillaHealth();
+        updateVanillaAbsorption();
     }
 
     public void heal(double amount) {
+        if (player.isDead()) return;
         PlayerStat health = getStat(Stats.HEALTH);
         if (health.getValue() >= health.getMaxValue()) return;
-        health.setValue(Math.min(amount, health.getMaxValue()));
+        health.setValue(Math.min(health.getValue() + amount, health.getMaxValue()));
+        updateVanillaHealth();
     }
+
+    public double getHealth() {
+        return getStat(Stats.HEALTH).getValue();
+    }
+
+    public double getMaxHealth() {
+        return getStat(Stats.HEALTH).getMaxValue();
+    }
+
+    public void updateVanillaHealth() {
+        double scaledHealth = getMaxHealth()/5;
+        player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(MathUtils.roundDownToMultipleOf(5, scaledHealth));
+        player.setHealth(MathUtils.roundDownToMultipleOf(5, getHealth()/5));
+    }
+
+    public void updateVanillaAbsorption() {
+        player.setAbsorptionAmount(absorptionAmount/5);
+    }
+    /* Health management */
+
+    /* Mana management */
+    public void useMana(double amount) {
+        PlayerStat mana = getStat(Stats.INTELLIGENCE);
+        mana.setValue(Math.max(0, mana.getValue() - amount));
+    }
+
+    public void regenMana(double amount) {
+        PlayerStat mana = getStat(Stats.INTELLIGENCE);
+        if (mana.getValue() >= mana.getMaxValue()) return;
+        mana.setValue(Math.min(mana.getValue() + amount, mana.getMaxValue()));
+    }
+
+    public double getMana() {
+        return getStat(Stats.INTELLIGENCE).getValue();
+    }
+
+    public double getMaxMana() {
+        return getStat(Stats.INTELLIGENCE).getMaxValue();
+    }
+    /* Mana management */
 }
 
 /*

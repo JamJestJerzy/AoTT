@@ -63,7 +63,7 @@ public class MagicWeapon extends Item {
             lore.add(gemstonesSlots);
         }
 
-        lore.add("\u00a7s\u00a7t\u00a7a\u00a7t\u00a7s");
+        lore.add("");
 
         if (!description.isEmpty()) {
             for (String line : description) lore.add(ChatColor.RESET+line);

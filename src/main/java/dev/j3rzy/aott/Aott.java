@@ -1,5 +1,6 @@
 package dev.j3rzy.aott;
 
+import static dev.j3rzy.aott.events.Scheduled.*;
 import static dev.j3rzy.aott.utils.Utils.log;
 import static dev.j3rzy.aott.utils.Utils.pm;
 
@@ -23,6 +24,7 @@ public final class Aott extends JavaPlugin {
         pm.registerEvents(new EntityDamageByEntity(), this);
         pm.registerEvents(new EntityDamage(), this);
         pm.registerEvents(new EntityDamageByBlock(), this);
+        pm.registerEvents(new PlayerRespawn(), this);
 
         /* Register commands */
         Objects.requireNonNull(this.getCommand("aote")).setExecutor(new aote());
@@ -30,9 +32,9 @@ public final class Aott extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("stick")).setExecutor(new stick());
         Objects.requireNonNull(this.getCommand("fish")).setExecutor(new fish());
 
-        Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
-        Objective obj = board.registerNewObjective("Board", Criteria.DUMMY, "Board");
-        obj.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+        onceEveryTwoSeconds();
+        onceASecond();
+        onceOneForthOfASecond();
 
         log.info("Plugin got enabled!");
     }

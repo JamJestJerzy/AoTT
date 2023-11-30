@@ -1,6 +1,7 @@
 package dev.j3rzy.aott.abilities;
 
 import dev.j3rzy.aott.item.Ability;
+import dev.j3rzy.aott.utils.PlayerUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -55,8 +56,7 @@ public class WaterImpact extends Ability {
 
         Player p = event.getPlayer();
 
-        Block b = p.getTargetBlock(null, 10);
-        Location loc = new Location(b.getWorld(), b.getX(), b.getY(), b.getZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
+        Location loc = PlayerUtils.teleportXBlocksForward(p, 10);
 
         p.getWorld().spawnParticle(Particle.WATER_SPLASH, loc, 50);
 
@@ -69,9 +69,5 @@ public class WaterImpact extends Ability {
         }
 
         witherShield.onTrigger(event);
-
-        p.teleport(loc);
-        p.setFallDistance(0);
-        p.setVelocity(new Vector(0,0,0));
     }
 }

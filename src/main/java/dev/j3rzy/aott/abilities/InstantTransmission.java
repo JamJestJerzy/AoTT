@@ -1,6 +1,7 @@
 package dev.j3rzy.aott.abilities;
 
 import dev.j3rzy.aott.item.Ability;
+import dev.j3rzy.aott.utils.PlayerUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -44,10 +45,6 @@ public class InstantTransmission extends Ability {
     public void onTrigger(PlayerInteractEvent event) {
         Player p = event.getPlayer();
 
-        Block b = p.getTargetBlock(null, 8);
-        Location loc = new Location(b.getWorld(), b.getX(), b.getY(), b.getZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
-        p.teleport(loc);
-        p.setFallDistance(0);
-        p.playSound(p, Sound.ENTITY_ENDERMAN_TELEPORT, 1.0F, 1.0F);
+        PlayerUtils.teleportXBlocksForward(p, 8);
     }
 }

@@ -3,21 +3,17 @@ package dev.j3rzy.aott.abilities;
 import dev.j3rzy.aott.enums.Stats;
 import dev.j3rzy.aott.item.Ability;
 import dev.j3rzy.aott.players.Players;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static dev.j3rzy.aott.utils.WorldUtils.getMobsInRadius;
 
 public class WitherShield extends Ability {
     private static final String name = "Wither Shield";
@@ -31,11 +27,12 @@ public class WitherShield extends Ability {
         ChatColor.GRAY + "converted into healing."
     });
     private static final double manaCost = 150;
-    private static final double cooldown = 10;
+    private static final double cooldown = 5;
     private static final List<Action> triggers = List.of(new Action[]{
         Action.RIGHT_CLICK_AIR,
         Action.RIGHT_CLICK_BLOCK
     });
+    private final List<dev.j3rzy.aott.player.Player> onCooldown = new ArrayList<>();
 
     public WitherShield() {
         super(name, description, manaCost, cooldown, triggers);
@@ -54,17 +51,24 @@ public class WitherShield extends Ability {
         Player p = event.getPlayer();
         dev.j3rzy.aott.player.Player player = Players.INSTANCE.getPlayer(p);
 
-        double absortionAmount = player.getStat(Stats.CRIT_DAMAGE).getValue() * 1.5;
+        if (onCooldown.contains(player)) return;
+
+        double absorptionAmount = player.getStat(Stats.CRIT_DAMAGE).getValue() * 1.5;
 
         player.addDamageReduction(0.1);
         new java.util.Timer().schedule(new java.util.TimerTask(){@Override public void run(){
             player.removeDamageReduction(0.1);
         }},5000);
-        player.addAbsorption(absortionAmount);
+        player.addAbsorption(absorptionAmount);
         new java.util.Timer().schedule(new java.util.TimerTask(){@Override public void run(){
-            double absortionRemoved = Math.max(player.getAbsorptionAmount(), absortionAmount);
-            player.removeAbsorption(absortionRemoved);
-            player.heal(absortionRemoved * 0.5);
+            double absorptionRemoved = Math.max(player.getAbsorptionAmount(), absorptionAmount);
+            player.removeAbsorption(absorptionRemoved);
+            player.heal(absorptionRemoved * 0.5);
         }},5000);
+        p.playSound(p, Sound.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F, 0.7F);
+        onCooldown.add(player);
+        new java.util.Timer().schedule(new java.util.TimerTask(){@Override public void run(){
+            onCooldown.remove(player);
+        }},(int)cooldown*1000);
     }
 }
