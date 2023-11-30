@@ -16,6 +16,7 @@ public class Abilities {
     private void registerAbilities() {
         abilities.add(new InstantTransmission());
         abilities.add(new WitherImpact());
+        abilities.add(new WitherShield());
     }
 
     public List<Ability> getAbilities() {
