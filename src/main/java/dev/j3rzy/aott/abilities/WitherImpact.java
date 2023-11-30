@@ -5,6 +5,7 @@ import dev.j3rzy.aott.item.Ability;
 import dev.j3rzy.aott.players.Players;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -62,8 +63,6 @@ public class WitherImpact extends Ability {
         Block b = p.getTargetBlock(null, 10);
         Location loc = new Location(b.getWorld(), b.getX(), b.getY(), b.getZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
 
-        for (int i = 0; i < explosionCount; i++) p.getWorld().createExplosion(loc, 0, false, false);
-
         List<Entity> mobsInRadius = getMobsInRadius(loc.getBlock(), explosionRadius);
 
         for (Entity entity : mobsInRadius) {
@@ -74,6 +73,7 @@ public class WitherImpact extends Ability {
         witherShield.onTrigger(event);
 
         p.teleport(loc);
+        p.getWorld().spawnParticle(Particle.EXPLOSION_LARGE, loc, 1);
         p.setFallDistance(0);
         p.setVelocity(new Vector(0,0,0));
     }
