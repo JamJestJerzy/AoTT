@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'dev.j3rzy'
-version = '0.0.1-1.20.1'
+version = '1.5.1-1.20'
 
 repositories {
     mavenCentral()

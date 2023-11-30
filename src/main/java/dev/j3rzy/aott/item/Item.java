@@ -41,7 +41,11 @@ public class Item {
 
         itemMeta.setDisplayName(rarity.color + name);
 
-        for (Stat stat : stats) lore.add(ChatColor.GRAY+stat.stat.name+": "+stat.stat.valueColor+((stat.stat == Stats.GEAR_SCORE)?"":"+")+(int)stat.value);
+        for (Stat stat : stats) {
+            String gemstoneStatBoost = "";
+            for (GemstoneSlot gemstoneSlot : gemstoneSlots) if (gemstoneSlot.getGamestone().getGemestone().stat == stat.stat) gemstoneStatBoost = ChatColor.LIGHT_PURPLE + "(+" + gemstoneSlot.getStatBoost(stat.stat).value + ")";
+            lore.add(ChatColor.GRAY+stat.stat.name+": "+stat.stat.valueColor+((stat.stat == Stats.GEAR_SCORE)?"":"+")+(int)stat.value + " " + gemstoneStatBoost);
+        }
         if (!gemstoneSlots.isEmpty()) {
             String gemstonesSlots = "";
             for (GemstoneSlot gemstoneSlot : gemstoneSlots) gemstonesSlots += " " + gemstoneSlot.getIcon();

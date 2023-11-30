@@ -1,6 +1,7 @@
 package dev.j3rzy.aott.item;
 
 import dev.j3rzy.aott.enums.GemstoneSlots;
+import dev.j3rzy.aott.enums.Stats;
 import dev.j3rzy.aott.item.Gemstone;
 import org.bukkit.ChatColor;
 
@@ -36,7 +37,13 @@ public class GemstoneSlot {
     }
 
     public String getIcon() {
-        if (gemstone == null) return ChatColor.DARK_GRAY + "[" + ((unlocked) ? ChatColor.GRAY : ChatColor.DARK_GRAY) + slotType.icon + ChatColor.DARK_GRAY + "]";
-        return gemstone.getGemstoneTier().color + "[" + gemstone.getGemestone().color + slotType.icon + gemstone.getGemstoneTier().color + "[";
+        if (gemstone == null || !unlocked) return ChatColor.DARK_GRAY + "[" + ((unlocked) ? ChatColor.GRAY : ChatColor.DARK_GRAY) + slotType.icon + ChatColor.DARK_GRAY + "]";
+        return gemstone.getGemstoneTier().color + "[" + gemstone.getGemestone().color + slotType.icon + gemstone.getGemstoneTier().color + "]";
+    }
+
+    public Stat getStatBoost(Stats stat) {
+        if (gemstone == null) return null;
+        if (gemstone.getGemestone().stat != stat) return null;
+        return new Stat(gemstone.getGemestone().stat, gemstone.getGemestone().amount);
     }
 }

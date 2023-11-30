@@ -45,7 +45,18 @@ public class MagicWeapon extends Item {
 
         itemMeta.setDisplayName(rarity.color + name);
 
-        for (Stat stat : stats) lore.add(ChatColor.GRAY+stat.stat.name+": "+stat.stat.valueColor+((stat.stat == Stats.GEAR_SCORE)?"":"+")+(int)stat.value);
+        for (Stat stat : stats) {
+            /* Applying gemstones */
+            String gemstoneStatBoost = "";
+            int statBoost = 0;
+            for (GemstoneSlot gemstoneSlot : gemstoneSlots) {
+                if (gemstoneSlot.getStatBoost(stat.stat) == null) continue;
+                statBoost += (int)gemstoneSlot.getStatBoost(stat.stat).value;
+                stat.setValue(stat.value + (int)gemstoneSlot.getStatBoost(stat.stat).value);
+            }
+            /* Applying gemstones */
+            lore.add(ChatColor.GRAY+stat.stat.name+": "+stat.stat.valueColor+((stat.stat == Stats.GEAR_SCORE)?"":"+")+(int)stat.value + " " + ((statBoost > 0) ? ChatColor.LIGHT_PURPLE + "(+" + statBoost + ")" : ""));
+        }
         if (!gemstoneSlots.isEmpty()) {
             String gemstonesSlots = "";
             for (GemstoneSlot gemstoneSlot : gemstoneSlots) gemstonesSlots += " " + gemstoneSlot.getIcon();
