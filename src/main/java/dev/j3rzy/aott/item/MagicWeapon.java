@@ -13,22 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MagicWeapon extends Item {
-    public final Material physicalItem;
-    public final Type type;
-    public final Rarity rarity;
-    public final String name;
-    public final List<String> description;
-    public final List<Stat> stats;
-    public final Ability ability;
+    private final Material physicalItem;
+    private final Type type;
+    private final Rarity rarity;
+    private final String name;
+    private final List<String> description;
+    private final List<Stat> stats;
+    private final boolean canBeReforged;
+    private final Ability ability;
 
-    public MagicWeapon(Material physicalItem, Type type, Rarity rarity, String name, List<String> description, List<Stat> stats, Ability ability) {
-        super(physicalItem, type, rarity, name, description, stats);
+    public MagicWeapon(Material physicalItem, Type type, Rarity rarity, String name, List<String> description, List<Stat> stats, boolean canBeReforged, Ability ability) {
+        super(physicalItem, type, rarity, name, description, stats, canBeReforged);
         this.physicalItem = physicalItem;
         this.type = type;
         this.rarity = rarity;
         this.name = name;
         this.description = description;
         this.stats = stats;
+        this.canBeReforged = canBeReforged;
         this.ability = ability;
     }
 
@@ -56,12 +58,16 @@ public class MagicWeapon extends Item {
         if (ability.cooldown > 0) lore.add(ChatColor.RESET+""+ChatColor.DARK_GRAY+"Cooldown: "+ChatColor.GREEN+(int)ability.cooldown+"s");
 
         lore.add("");
-        lore.add(ChatColor.RESET+""+ChatColor.DARK_GRAY+"This item can be reforged!");
+        if (canBeReforged) lore.add(ChatColor.RESET+""+ChatColor.DARK_GRAY+"This item can be reforged!");
         lore.add(ChatColor.RESET+""+rarity.color+ChatColor.BOLD+rarity.name+" "+type.name);
         itemMeta.setLore(lore);
         itemMeta.setUnbreakable(true);
         itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(itemMeta);
         return item;
+    }
+
+    public Ability getAbility() {
+        return ability;
     }
 }

@@ -3,7 +3,8 @@ package dev.j3rzy.aott.enums;
 public enum Type {
     SWORD("SWORD"),
     BOW("BOW"),
-    WAND("WAND");
+    WAND("WAND"),
+    NOTHING("");
 
     public final String name;
 

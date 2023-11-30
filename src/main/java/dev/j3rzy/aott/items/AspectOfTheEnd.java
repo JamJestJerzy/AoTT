@@ -20,6 +20,7 @@ public class AspectOfTheEnd extends MagicWeapon {
                 new Stat(Stats.DAMAGE, 100),
                 new Stat(Stats.STRENGTH, 100)
             }),
+            true,
             new InstantTransmission()
         );
     }

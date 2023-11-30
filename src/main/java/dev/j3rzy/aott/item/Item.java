@@ -13,20 +13,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Item {
-    public final Material physicalItem;
-    public final Type type;
-    public final Rarity rarity;
-    public final String name;
-    public final List<String> description;
-    public final List<Stat> stats;
+    private final Material physicalItem;
+    private final Type type;
+    private final Rarity rarity;
+    private final String name;
+    private final List<String> description;
+    private final List<Stat> stats;
+    private final boolean canBeReforged;
 
-    public Item(Material physicalItem, Type type, Rarity rarity, String name, List<String> description, List<Stat> stats) {
+    public Item(Material physicalItem, Type type, Rarity rarity, String name, List<String> description, List<Stat> stats, boolean canBeReforged) {
         this.physicalItem = physicalItem;
         this.type = type;
         this.rarity = rarity;
         this.name = name;
         this.description = description;
         this.stats = stats;
+        this.canBeReforged = canBeReforged;
     }
 
     public ItemStack getItem() {
@@ -46,12 +48,40 @@ public class Item {
             lore.add("");
         }
 
-        lore.add(ChatColor.RESET+""+ChatColor.DARK_GRAY+"This item can be reforged!");
+        if (canBeReforged) lore.add(ChatColor.RESET+""+ChatColor.DARK_GRAY+"This item can be reforged!");
         lore.add(ChatColor.RESET+""+rarity.color+ChatColor.BOLD+rarity.name+" "+type.name);
         itemMeta.setLore(lore);
         itemMeta.setUnbreakable(true);
         itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(itemMeta);
         return item;
+    }
+
+    public boolean CanBeReforged() {
+        return canBeReforged;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public Rarity getRarity() {
+        return rarity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getDescription() {
+        return description;
+    }
+
+    public List<Stat> getStats() {
+        return stats;
+    }
+
+    public Material getPhysicalItem() {
+        return physicalItem;
     }
 }

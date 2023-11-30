@@ -1,10 +1,11 @@
 package dev.j3rzy.aott;
 
-import static dev.j3rzy.aott.Utils.log;
-import static dev.j3rzy.aott.Utils.pm;
+import static dev.j3rzy.aott.utils.Utils.log;
+import static dev.j3rzy.aott.utils.Utils.pm;
 
 import dev.j3rzy.aott.commands.aote;
 import dev.j3rzy.aott.commands.hyperion;
+import dev.j3rzy.aott.commands.stick;
 import dev.j3rzy.aott.events.EntityDamageByEntity;
 import dev.j3rzy.aott.events.PlayerInteract;
 import dev.j3rzy.aott.events.PlayerJoin;
@@ -19,10 +20,12 @@ public final class Aott extends JavaPlugin {
         pm.registerEvents(new PlayerInteract(), this);
         pm.registerEvents(new PlayerJoin(), this);
         pm.registerEvents(new EntityDamageByEntity(), this);
+        pm.registerEvents(new EntityDamageByEntity(), this);
 
         /* Register commands */
         Objects.requireNonNull(this.getCommand("aote")).setExecutor(new aote());
         Objects.requireNonNull(this.getCommand("hyperion")).setExecutor(new hyperion());
+        Objects.requireNonNull(this.getCommand("stick")).setExecutor(new stick());
 
         log.info("Plugin got enabled!");
     }

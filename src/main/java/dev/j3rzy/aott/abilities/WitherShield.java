@@ -54,7 +54,7 @@ public class WitherShield extends Ability {
         Player p = event.getPlayer();
         dev.j3rzy.aott.player.Player player = Players.INSTANCE.getPlayer(p);
 
-        double absortionAmount = player.getStat(Stats.CRIT_DAMAGE).value * 1.5;
+        double absortionAmount = player.getStat(Stats.CRIT_DAMAGE).getValue() * 1.5;
 
         player.addDamageReduction(0.1);
         new java.util.Timer().schedule(new java.util.TimerTask(){@Override public void run(){

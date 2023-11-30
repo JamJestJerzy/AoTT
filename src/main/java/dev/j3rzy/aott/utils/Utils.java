@@ -1,5 +1,6 @@
-package dev.j3rzy.aott;
+package dev.j3rzy.aott.utils;
 
+import dev.j3rzy.aott.Aott;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 

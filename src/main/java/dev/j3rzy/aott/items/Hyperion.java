@@ -31,6 +31,7 @@ public class Hyperion extends MagicWeapon {
                 new Stat(Stats.INTELLIGENCE, 350),
                 new Stat(Stats.FEROCITY, 30)
             }),
+            true,
             new WitherImpact()
         );
     }

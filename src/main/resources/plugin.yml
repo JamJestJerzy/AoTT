@@ -16,3 +16,7 @@ commands:
     description: Gives hyperion
     usage: /<command>
     permission: aott.admin.hyperion
+  stick:
+    description: Gives Wither Impact stick
+    usage: /<command>
+    permission: aott.admin.stick

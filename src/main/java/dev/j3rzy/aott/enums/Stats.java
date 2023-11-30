@@ -12,7 +12,7 @@ public enum Stats {
     BONUS_ATTACK_SPEED("Bonus Attack Speed", ChatColor.YELLOW, ChatColor.RED),
     ABILITY_DAMAGE("Ability Damage", ChatColor.RED, ChatColor.RED),
     TRUE_DEFENSE("True Defense", ChatColor.WHITE, ChatColor.GREEN),
-    FEROCITY("Ferocity", ChatColor.RED, ChatColor.RED),
+    FEROCITY("Ferocity", ChatColor.RED, ChatColor.GREEN),
     HEALTH_REGEN("Health Regen", ChatColor.RED, ChatColor.GREEN),
     VITALITY("Vitality", ChatColor.DARK_RED, ChatColor.GREEN),
     MENDING("Mending", ChatColor.GREEN, ChatColor.GREEN),
