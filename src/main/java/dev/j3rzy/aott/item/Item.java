@@ -19,15 +19,17 @@ public class Item {
     private final String name;
     private final List<String> description;
     private final List<Stat> stats;
+    private final List<GemstoneSlot> gemstoneSlots;
     private final boolean canBeReforged;
 
-    public Item(Material physicalItem, Type type, Rarity rarity, String name, List<String> description, List<Stat> stats, boolean canBeReforged) {
+    public Item(Material physicalItem, Type type, Rarity rarity, String name, List<String> description, List<Stat> stats, List<GemstoneSlot> gemstoneSlots, boolean canBeReforged) {
         this.physicalItem = physicalItem;
         this.type = type;
         this.rarity = rarity;
         this.name = name;
         this.description = description;
         this.stats = stats;
+        this.gemstoneSlots = gemstoneSlots;
         this.canBeReforged = canBeReforged;
     }
 
@@ -40,6 +42,11 @@ public class Item {
         itemMeta.setDisplayName(rarity.color + name);
 
         for (Stat stat : stats) lore.add(ChatColor.GRAY+stat.stat.name+": "+stat.stat.valueColor+((stat.stat == Stats.GEAR_SCORE)?"":"+")+(int)stat.value);
+        if (!gemstoneSlots.isEmpty()) {
+            String gemstonesSlots = "";
+            for (GemstoneSlot gemstoneSlot : gemstoneSlots) gemstonesSlots += " " + gemstoneSlot.getIcon();
+            lore.add(gemstonesSlots);
+        }
 
         lore.add("");
 
@@ -83,5 +90,9 @@ public class Item {
 
     public Material getPhysicalItem() {
         return physicalItem;
+    }
+
+    public List<GemstoneSlot> getGemstoneSlots() {
+        return gemstoneSlots;
     }
 }

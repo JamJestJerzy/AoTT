@@ -2,9 +2,11 @@ package dev.j3rzy.aott.items;
 
 import dev.j3rzy.aott.abilities.InstantTransmission;
 import dev.j3rzy.aott.abilities.WitherImpact;
+import dev.j3rzy.aott.enums.GemstoneSlots;
 import dev.j3rzy.aott.enums.Rarity;
 import dev.j3rzy.aott.enums.Stats;
 import dev.j3rzy.aott.enums.Type;
+import dev.j3rzy.aott.item.GemstoneSlot;
 import dev.j3rzy.aott.item.MagicWeapon;
 import dev.j3rzy.aott.item.Stat;
 import org.bukkit.ChatColor;
@@ -30,6 +32,10 @@ public class Hyperion extends MagicWeapon {
                 new Stat(Stats.STRENGTH, 150),
                 new Stat(Stats.INTELLIGENCE, 350),
                 new Stat(Stats.FEROCITY, 30)
+            }),
+            List.of(new GemstoneSlot[]{
+                new GemstoneSlot(GemstoneSlots.SAPPHIRE, false, null),
+                new GemstoneSlot(GemstoneSlots.COMBAT, false, null)
             }),
             true,
             new WitherImpact()

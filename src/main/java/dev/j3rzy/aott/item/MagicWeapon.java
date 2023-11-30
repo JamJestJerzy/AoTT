@@ -19,17 +19,19 @@ public class MagicWeapon extends Item {
     private final String name;
     private final List<String> description;
     private final List<Stat> stats;
+    private final List<GemstoneSlot> gemstoneSlots;
     private final boolean canBeReforged;
     private final Ability ability;
 
-    public MagicWeapon(Material physicalItem, Type type, Rarity rarity, String name, List<String> description, List<Stat> stats, boolean canBeReforged, Ability ability) {
-        super(physicalItem, type, rarity, name, description, stats, canBeReforged);
+    public MagicWeapon(Material physicalItem, Type type, Rarity rarity, String name, List<String> description, List<Stat> stats, List<GemstoneSlot> gemstoneSlots, boolean canBeReforged, Ability ability) {
+        super(physicalItem, type, rarity, name, description, stats, gemstoneSlots, canBeReforged);
         this.physicalItem = physicalItem;
         this.type = type;
         this.rarity = rarity;
         this.name = name;
         this.description = description;
         this.stats = stats;
+        this.gemstoneSlots = gemstoneSlots;
         this.canBeReforged = canBeReforged;
         this.ability = ability;
     }
@@ -44,6 +46,11 @@ public class MagicWeapon extends Item {
         itemMeta.setDisplayName(rarity.color + name);
 
         for (Stat stat : stats) lore.add(ChatColor.GRAY+stat.stat.name+": "+stat.stat.valueColor+((stat.stat == Stats.GEAR_SCORE)?"":"+")+(int)stat.value);
+        if (!gemstoneSlots.isEmpty()) {
+            String gemstonesSlots = "";
+            for (GemstoneSlot gemstoneSlot : gemstoneSlots) gemstonesSlots += " " + gemstoneSlot.getIcon();
+            lore.add(gemstonesSlots);
+        }
 
         lore.add("");
 

@@ -1,8 +1,10 @@
 package dev.j3rzy.aott.items;
 
 import dev.j3rzy.aott.abilities.WitherImpact;
+import dev.j3rzy.aott.enums.GemstoneSlots;
 import dev.j3rzy.aott.enums.Rarity;
 import dev.j3rzy.aott.enums.Type;
+import dev.j3rzy.aott.item.GemstoneSlot;
 import dev.j3rzy.aott.item.MagicWeapon;
 import org.bukkit.Material;
 
@@ -14,6 +16,7 @@ public class Stick extends MagicWeapon {
             Material.STICK,
             Type.NOTHING, Rarity.COMMON,
             "Stick",
+            List.of(),
             List.of(),
             List.of(),
             false,

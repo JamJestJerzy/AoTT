@@ -1,5 +1,6 @@
 package dev.j3rzy.aott.items;
 
+import dev.j3rzy.aott.enums.GemstoneSlots;
 import dev.j3rzy.aott.enums.Rarity;
 import dev.j3rzy.aott.enums.Stats;
 import dev.j3rzy.aott.abilities.InstantTransmission;
@@ -19,6 +20,9 @@ public class AspectOfTheEnd extends MagicWeapon {
             List.of(new Stat[]{
                 new Stat(Stats.DAMAGE, 100),
                 new Stat(Stats.STRENGTH, 100)
+            }),
+            List.of(new GemstoneSlot[]{
+                    new GemstoneSlot(GemstoneSlots.SAPPHIRE, false, null)
             }),
             true,
             new InstantTransmission()
