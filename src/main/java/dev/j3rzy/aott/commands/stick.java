@@ -1,6 +1,8 @@
 package dev.j3rzy.aott.commands;
 
+import dev.j3rzy.aott.items.AspectOfTheEnd;
 import dev.j3rzy.aott.items.Hyperion;
+import dev.j3rzy.aott.items.Items;
 import dev.j3rzy.aott.items.Stick;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,7 +14,7 @@ public class stick implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) return false;
 
-        player.getInventory().addItem(new Stick().getItem());
+        player.getInventory().addItem(Items.INSTANCE.getItem(new Stick()).getItem());
 
         return true;
     }
