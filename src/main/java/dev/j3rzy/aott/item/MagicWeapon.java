@@ -10,7 +10,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class MagicWeapon extends Item {
     private final Material physicalItem;
@@ -46,22 +48,36 @@ public class MagicWeapon extends Item {
         itemMeta.setDisplayName(rarity.color + name);
 
         for (Stat stat : stats) {
-            /* Applying gemstones */
+            /* Resetting stat value before applying gemstone boosts */
+            stat.resetValue();
+
             String gemstoneStatBoost = "";
-            int statBoost = 0;
+            int totalStatBoost = 0;
+            Set<GemstoneSlot> appliedSlots = new HashSet<>();
+
             for (GemstoneSlot gemstoneSlot : gemstoneSlots) {
-                if (gemstoneSlot.getStatBoost(stat.stat) == null) continue;
-                statBoost += (int)gemstoneSlot.getStatBoost(stat.stat).value;
-                stat.setValue(stat.value + (int)gemstoneSlot.getStatBoost(stat.stat).value);
+                if (gemstoneSlot.getStatBoost(stat.stat) != null && !appliedSlots.contains(gemstoneSlot)) {
+                    int boostValue = (int) gemstoneSlot.getStatBoost(stat.stat).value;
+                    totalStatBoost += boostValue;
+                    stat.setValue(stat.value + boostValue);
+                    appliedSlots.add(gemstoneSlot);
+                }
             }
+
             /* Applying gemstones */
-            lore.add(ChatColor.GRAY+stat.stat.name+": "+stat.stat.valueColor+((stat.stat == Stats.GEAR_SCORE)?"":"+")+(int)stat.value + " " + ((statBoost > 0) ? ChatColor.LIGHT_PURPLE + "(+" + statBoost + ")" : ""));
+            lore.add(ChatColor.GRAY + stat.stat.name + ": " + stat.stat.valueColor +
+                    ((stat.stat == Stats.GEAR_SCORE) ? "" : "+") + (int) stat.value +
+                    ((totalStatBoost > 0) ? ChatColor.LIGHT_PURPLE + " (+" + totalStatBoost + ")" : ""));
         }
+
         if (!gemstoneSlots.isEmpty()) {
-            String gemstonesSlots = "";
-            for (GemstoneSlot gemstoneSlot : gemstoneSlots) gemstonesSlots += " " + gemstoneSlot.getIcon();
-            lore.add(gemstonesSlots);
+            StringBuilder gemstonesSlots = new StringBuilder();
+            for (GemstoneSlot gemstoneSlot : gemstoneSlots) {
+                gemstonesSlots.append(" ").append(gemstoneSlot.getIcon());
+            }
+            lore.add(gemstonesSlots.toString());
         }
+
 
         lore.add("");
 

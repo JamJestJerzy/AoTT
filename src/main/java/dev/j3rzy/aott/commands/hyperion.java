@@ -1,5 +1,6 @@
 package dev.j3rzy.aott.commands;
 
+import dev.j3rzy.aott.item.MagicWeapon;
 import dev.j3rzy.aott.items.AspectOfTheEnd;
 import dev.j3rzy.aott.items.Hyperion;
 import dev.j3rzy.aott.items.Items;
@@ -13,7 +14,7 @@ public class hyperion implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) return false;
 
-        player.getInventory().addItem(Items.INSTANCE.getItem(new Hyperion()).getItem());
+        player.getInventory().addItem(Items.INSTANCE.getItem(Hyperion.class).getItem());
 
         return true;
     }

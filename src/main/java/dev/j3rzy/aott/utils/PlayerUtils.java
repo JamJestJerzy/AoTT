@@ -1,7 +1,9 @@
 package dev.j3rzy.aott.utils;
 
+import dev.j3rzy.aott.enums.Stats;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,6 +18,15 @@ import java.util.Set;
 public class PlayerUtils {
     public static void sendActionBarMessage(Player player, String message) {
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
+    }
+
+    public static void updateActionBarStats(dev.j3rzy.aott.player.Player player) {
+        String health = ((player.getAbsorptionAmount() > 0) ? ChatColor.GOLD : ChatColor.RED) + "" + (int) (player.getHealth() + player.getAbsorptionAmount()) + "/" + (int) player.getStat(Stats.HEALTH).getMaxValue() + Stats.HEALTH.symbol;
+        String defense = ChatColor.GREEN + "" + (int) player.getStat(Stats.DEFENSE).getValue() + Stats.DEFENSE.symbol + " " + Stats.DEFENSE.name;
+        String intelligence = ChatColor.AQUA + "" + (int) player.getMana() + "/" + (int) player.getStat(Stats.INTELLIGENCE).getMaxValue() + Stats.INTELLIGENCE.symbol;
+
+        String message = health + "     " + defense + "     " + intelligence;
+        PlayerUtils.sendActionBarMessage(player.getPlayer(), message);
     }
 
     /*
@@ -54,7 +65,7 @@ public class PlayerUtils {
         }
 
         if (location != player.getLocation()) {
-            player.teleport(location, PlayerTeleportEvent.TeleportCause.PLUGIN);
+            player.teleport(location, PlayerTeleportEvent.TeleportCause.COMMAND);
             player.setFallDistance(0);
             player.setVelocity(new Vector(0,0,0));
         }

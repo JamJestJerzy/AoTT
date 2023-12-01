@@ -43,12 +43,7 @@ public class Scheduled {
 
         /* Display stats above hotbar */
         for (Player player : Players.INSTANCE.getPlayers()) {
-            String health = ((player.getAbsorptionAmount() > 0) ? ChatColor.GOLD : ChatColor.RED) + "" + (int) (player.getHealth() + player.getAbsorptionAmount()) + "/" + (int) player.getStat(Stats.HEALTH).getMaxValue() + Stats.HEALTH.symbol;
-            String defense = ChatColor.GREEN + "" + (int) player.getStat(Stats.DEFENSE).getValue() + Stats.DEFENSE.symbol + " " + Stats.DEFENSE.name;
-            String intelligence = ChatColor.AQUA + "" + (int) player.getMana() + "/" + (int) player.getStat(Stats.INTELLIGENCE).getMaxValue() + Stats.INTELLIGENCE.symbol;
-
-            String message = health + "     " + defense + "     " + intelligence;
-            PlayerUtils.sendActionBarMessage(player.getPlayer(), message);
+            PlayerUtils.updateActionBarStats(player);
         }
         /* Display stats above hotbar */
 

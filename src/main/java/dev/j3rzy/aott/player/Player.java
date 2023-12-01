@@ -3,6 +3,7 @@ package dev.j3rzy.aott.player;
 import dev.j3rzy.aott.enums.Stats;
 import dev.j3rzy.aott.item.Stat;
 import dev.j3rzy.aott.utils.MathUtils;
+import dev.j3rzy.aott.utils.PlayerUtils;
 import org.bukkit.attribute.Attribute;
 
 import java.util.ArrayList;
@@ -119,10 +120,12 @@ public class Player {
         double scaledHealth = getMaxHealth()/5;
         player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(MathUtils.roundDownToMultipleOf(5, scaledHealth));
         player.setHealth(MathUtils.roundDownToMultipleOf(5, getHealth()/5));
+        PlayerUtils.updateActionBarStats(this);
     }
 
     public void updateVanillaAbsorption() {
         player.setAbsorptionAmount(absorptionAmount/5);
+        PlayerUtils.updateActionBarStats(this);
     }
     /* Health management */
 

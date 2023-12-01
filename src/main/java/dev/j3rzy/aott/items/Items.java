@@ -31,6 +31,11 @@ public class Items {
         return null;
     }
 
+    public Item getItem(Class<?> itemClass) {
+        for (Item i : items) if (i.getClass() == itemClass) return i;
+        return null;
+    }
+
     public Item getItem(String name) {
         for (Item i : items) if (Objects.equals(i.getName(), name)) return i;
         return null;
