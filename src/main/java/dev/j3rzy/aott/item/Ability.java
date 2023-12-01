@@ -21,6 +21,16 @@ public class Ability {
         this.triggers = triggers;
     }
 
+    /**
+     *
+     * @param item ItemStack to test
+     * @return whatever given item have this ability
+     */
     public boolean haveAbility(ItemStack item) { return false; }
+
+    /**
+     * Applies ability's effect
+     * @param event PlayerInteractionEvent
+     */
     public void onTrigger(PlayerInteractEvent event) {}
 }

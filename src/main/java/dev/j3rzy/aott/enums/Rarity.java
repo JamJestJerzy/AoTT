@@ -14,7 +14,13 @@ public enum Rarity {
     VERY_SPECIAL("VERY SPECIAL", ChatColor.RED),
     ADMIN("ADMIN", ChatColor.DARK_RED);
 
+    /**
+     * Rarity's display name
+     */
     public final String name;
+    /**
+     * Rarity's color
+     */
     public final ChatColor color;
 
     Rarity(String name, ChatColor color) {

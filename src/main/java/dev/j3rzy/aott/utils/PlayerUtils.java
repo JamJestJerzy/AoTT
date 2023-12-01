@@ -16,10 +16,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class PlayerUtils {
+    /**
+     *
+     * @param player player to send action bar message to
+     * @param message message to send
+     */
     public static void sendActionBarMessage(Player player, String message) {
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
     }
 
+    /**
+     *
+     * @param player Player to update action bar of
+     */
     public static void updateActionBarStats(dev.j3rzy.aott.player.Player player) {
         String health = ((player.getAbsorptionAmount() > 0) ? ChatColor.GOLD : ChatColor.RED) + "" + (int) (player.getHealth() + player.getAbsorptionAmount()) + "/" + (int) player.getStat(Stats.HEALTH).getMaxValue() + Stats.HEALTH.symbol;
         String defense = ChatColor.GREEN + "" + (int) player.getStat(Stats.DEFENSE).getValue() + Stats.DEFENSE.symbol + " " + Stats.DEFENSE.name;
@@ -29,10 +38,12 @@ public class PlayerUtils {
         PlayerUtils.sendActionBarMessage(player.getPlayer(), message);
     }
 
-    /*
-    * Teleports player given amount of blocks in direction he is facing.
-    * Returns location player got teleported to.
-    */
+    /**
+     *
+     * @param player Player to teleport
+     * @param X amount of blocks to teleport
+     * @return Location player got teleported to
+     */
     public static Location teleportXBlocksForward(Player player, int X) {
         Set<Material> transparent = new HashSet<>();
 

@@ -15,6 +15,9 @@ public enum GemstoneSlots {
     MINING("\u2726"),
     UNIVERSAL("\u2742");
 
+    /**
+     * Icon gamestone slot have
+     */
     public final String icon;
 
     GemstoneSlots(String icon) {

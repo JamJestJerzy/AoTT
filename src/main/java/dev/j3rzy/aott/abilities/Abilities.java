@@ -13,6 +13,9 @@ public class Abilities {
         registerAbilities();
     }
 
+    /**
+     * Add here all abilities
+     */
     private void registerAbilities() {
         abilities.add(new InstantTransmission());
         abilities.add(new WitherImpact());
@@ -20,6 +23,10 @@ public class Abilities {
         abilities.add(new WaterImpact());
     }
 
+    /**
+     *
+     * @return List of all registered abilities
+     */
     public List<Ability> getAbilities() {
         return abilities;
     }

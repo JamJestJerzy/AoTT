@@ -12,10 +12,18 @@ public class Gemstone {
         this.gemstoneTier = gemstoneTier;
     }
 
+    /**
+     *
+     * @return Gemstone enum used in object
+     */
     public Gemstones getGemestone() {
         return gemestone;
     }
 
+    /**
+     *
+     * @return gamestone's rarity
+     */
     public Rarity getGemstoneTier() {
         return gemstoneTier;
     }

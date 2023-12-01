@@ -6,6 +6,9 @@ public enum Type {
     WAND("WAND"),
     NOTHING("");
 
+    /**
+     * Type's name
+     */
     public final String name;
 
     Type(String name) { this.name = name; }

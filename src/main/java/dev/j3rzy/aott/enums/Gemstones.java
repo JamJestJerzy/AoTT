@@ -11,8 +11,17 @@ public enum Gemstones {
     TOPAZ(ChatColor.YELLOW, Stats.MENDING, 99), //tmp
     JASPER(ChatColor.LIGHT_PURPLE, Stats.STRENGTH, 99);
 
+    /**
+     * Gemstone's color
+     */
     public final ChatColor color;
+    /**
+     * Stat gemstone gives boost of
+     */
     public final Stats stat;
+    /**
+     * Amount of stat boost gemstone gives
+     */
     public final int amount;
 
     Gemstones(ChatColor color, Stats stat, double amount) {

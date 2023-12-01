@@ -32,6 +32,10 @@ public class Item {
         this.canBeReforged = canBeReforged;
     }
 
+    /**
+     *
+     * @return Item's ItemStack
+     */
     public ItemStack getItem() {
         ItemStack item = new ItemStack(physicalItem);
         ItemMeta itemMeta = item.getItemMeta();
@@ -90,38 +94,74 @@ public class Item {
         return item;
     }
 
+    /**
+     *
+     * @return whatever item can be reforged or not
+     */
     public boolean CanBeReforged() {
         return canBeReforged;
     }
 
+    /**
+     *
+     * @return item's type (e.g. SWORD)
+     */
     public Type getType() {
         return type;
     }
 
+    /**
+     *
+     * @return item's rarity
+     */
     public Rarity getRarity() {
         return rarity;
     }
 
+    /**
+     *
+     * @return item's name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @return item's description
+     */
     public List<String> getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @return item's stats
+     */
     public List<Stat> getStats() {
         return stats;
     }
 
+    /**
+     *
+     * @return item used of in-game item's sprite
+     */
     public Material getPhysicalItem() {
         return physicalItem;
     }
 
+    /**
+     *
+     * @return item's avaiable gemstone slots
+     */
     public List<GemstoneSlot> getGemstoneSlots() {
         return gemstoneSlots;
     }
 
+    /**
+     *
+     * @return item's stats after applying gemstones
+     */
     public List<Stat> getGemstoneBoostedStats() {
         List<Stat> boostedStats = new ArrayList<>(stats); // Create a copy of stats to preserve original values
 

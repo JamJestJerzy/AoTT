@@ -11,6 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorldUtils {
+    /**
+     *
+     * @param block center of radius
+     * @param radius radius
+     * @return List of Entities in radius
+     */
     public static List<Entity> getMobsInRadius(Block block, double radius) {
         List<Entity> mobs = new ArrayList<>();
         World world = block.getWorld();

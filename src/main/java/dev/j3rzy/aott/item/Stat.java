@@ -13,10 +13,17 @@ public class Stat {
         this.baseValue = value;
     }
 
+    /**
+     *
+     * @param value amout of stat
+     */
     public void setValue(double value) {
         this.value = value;
     }
 
+    /**
+     * Restores base value
+     */
     public void resetValue() {
         this.value = baseValue;
     }

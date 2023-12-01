@@ -1,19 +1,20 @@
 package dev.j3rzy.aott.events;
 
-import dev.j3rzy.aott.enums.Stats;
 import dev.j3rzy.aott.player.Player;
 import dev.j3rzy.aott.players.Players;
 import dev.j3rzy.aott.utils.PlayerUtils;
-import org.bukkit.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitScheduler;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import static dev.j3rzy.aott.utils.Utils.plugin;
 
 public class Scheduled {
+    BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+
+    /**
+     * Excecuted once every 2 seconds
+     */
     public static void onceEveryTwoSeconds() {
         new java.util.Timer().schedule(new java.util.TimerTask(){@Override public void run(){
             onceEveryTwoSeconds();
@@ -27,12 +28,18 @@ public class Scheduled {
         /* Regen mana and health */
     }
 
+    /**
+     * Executed once every second
+     */
     public static void onceASecond() {
         new java.util.Timer().schedule(new java.util.TimerTask(){@Override public void run(){
             onceASecond();
         }},1000);
     }
 
+    /**
+     * Executed once 1/4th of a second
+     */
     public static void onceOneForthOfASecond() {
         new java.util.Timer().schedule(new java.util.TimerTask() {
             @Override
@@ -43,47 +50,21 @@ public class Scheduled {
 
         /* Display stats above hotbar */
         for (Player player : Players.INSTANCE.getPlayers()) {
-            PlayerUtils.updateActionBarStats(player);
+            PlayerUtils.updateActionBarStats(player); // Shows stats above hotbar
+            player.getPlayer().setFoodLevel(20);
         }
         /* Display stats above hotbar */
-
-        /* Update stats from items held in hand
-        for (Player player : Players.INSTANCE.getPlayers()) {
-            org.bukkit.entity.Player p = player.getPlayer();
-            ItemStack heldItem = p.getItemInHand();
-            ItemMeta meta = heldItem.getItemMeta();
-
-            if (meta == null || meta.getLore() == null) continue;
-
-            List<String> stats = new ArrayList<>();
-
-            for (String line : meta.getLore()) {
-                line = ChatColor.stripColor(line);
-                String[] splitLine = line.split(": ");
-                if (splitLine.length == 2) {
-                    String statName = splitLine[0];
-                    double statValue;
-
-                    try {
-                        statValue = Double.parseDouble(splitLine[1]);
-                    } catch (NumberFormatException e) {
-                        // Handle parsing errors if needed
-                        continue;
-                    }
-
-                    // Match the stat name with player's stats and update accordingly
-                    Stats playerStat = Stats.getStatByName(statName); // Implement this method in your Stats enum
-                    if (playerStat != null) {
-                        player.updateStat(playerStat, statValue);
-                    }
-                }
-            }
-        }
-        Update stats from items held in hand */
 
         for (Player player : Players.INSTANCE.getPlayers()) {
             org.bukkit.entity.Player bukkitPlayer = player.getPlayer();
             bukkitPlayer.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(player.getMaxHealth()/5);
         }
     }
+
+    /**
+     * Executed once per gameTick
+     */
+    int taskId = scheduler.scheduleSyncRepeatingTask(plugin, () -> {
+
+    }, 0L, 1L);
 }

@@ -38,10 +38,19 @@ public class Player {
         this.damageReduction = 0;
     }
 
+    /**
+     *
+     * @return bukkitPlayer Class represents
+     */
     public org.bukkit.entity.Player getPlayer() {
         return player;
     }
 
+    /**
+     *
+     * @param statistic stat to update
+     * @param newValue new stat's value
+     */
     public void updateStat(Stats statistic, double newValue) {
         for (PlayerStat playerStat : stats) if (playerStat.getStat() == statistic) {
             if (playerStat.isRegenerating()) playerStat.setMaxValue(newValue);
@@ -52,6 +61,11 @@ public class Player {
         }
     }
 
+    /**
+     *
+     * @param statistic stat to get
+     * @return stat's max value
+     */
     public double getStatMaxValue(Stats statistic) {
         for (PlayerStat playerStat : stats) if (playerStat.getStat() == statistic) {
             if (playerStat.isRegenerating()) return playerStat.getMaxValue();
@@ -60,31 +74,79 @@ public class Player {
         return -1;
     }
 
+    /**
+     *
+     * @param statistic stat to fetch
+     * @return stat object
+     */
     public PlayerStat getStat(Stats statistic) {
         for (PlayerStat playerStat : stats) if (playerStat.getStat() == statistic) return playerStat;
         return null;
     }
 
+    /**
+     *
+     * @return amount of damage reduction (percentage / 100)
+     */
     public double getDamageReduction() {return damageReduction; }
+
+    /**
+     *
+     * @param amount amount of damage reduction to add (percentage / 100)
+     */
     public void addDamageReduction(double amount) { damageReduction += amount; }
+
+    /**
+     *
+     * @param amount amount damage reduction to remove (percentage / 100)
+     */
     public void removeDamageReduction(double amount) { damageReduction -= Math.min(amount, damageReduction); }
+
+    /**
+     *
+     * @param damageReduction amount to set damage reduction to (percentage / 100)
+     */
     public void setDamageReduction(double damageReduction) { this.damageReduction = damageReduction; }
 
+    /**
+     *
+     * @return absorption amount
+     */
     public double getAbsorptionAmount() { return absorptionAmount; }
+
+    /**
+     *
+     * @param amount amount of absorption to add
+     */
     public void addAbsorption(double amount) {
         absorptionAmount += amount;
         updateVanillaAbsorption();
     }
+
+    /**
+     *
+     * @param amount amount of absorption to remove
+     */
     public void removeAbsorption(double amount) {
         absorptionAmount = Math.max(0, absorptionAmount - amount);
         updateVanillaAbsorption();
     }
+
+    /**
+     *
+     * @param absorptionAmount amout to set absorption to
+     */
     public void setAbsorptionAmount(double absorptionAmount) {
         this.absorptionAmount = absorptionAmount;
         updateVanillaAbsorption();
     }
 
     /* Health management */
+
+    /**
+     *
+     * @param amount amount of damage to deal to player
+     */
     public void dealDamage(double amount) {
         if (player.isDead()) return;
         PlayerStat health = getStat(Stats.HEALTH);
@@ -100,6 +162,10 @@ public class Player {
         updateVanillaAbsorption();
     }
 
+    /**
+     *
+     * @param amount amount of hp to heal player
+     */
     public void heal(double amount) {
         if (player.isDead()) return;
         PlayerStat health = getStat(Stats.HEALTH);
@@ -108,14 +174,25 @@ public class Player {
         updateVanillaHealth();
     }
 
+    /**
+     *
+     * @return amount of health player have
+     */
     public double getHealth() {
         return getStat(Stats.HEALTH).getValue();
     }
 
+    /**
+     *
+     * @return player's max health
+     */
     public double getMaxHealth() {
         return getStat(Stats.HEALTH).getMaxValue();
     }
 
+    /**
+     * Updates vanilla health bar with custom amounts
+     */
     public void updateVanillaHealth() {
         double scaledHealth = getMaxHealth()/5;
         player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(MathUtils.roundDownToMultipleOf(5, scaledHealth));
@@ -123,6 +200,9 @@ public class Player {
         PlayerUtils.updateActionBarStats(this);
     }
 
+    /**
+     * Updates vanilla absorption amount with custom amounts
+     */
     public void updateVanillaAbsorption() {
         player.setAbsorptionAmount(absorptionAmount/5);
         PlayerUtils.updateActionBarStats(this);
@@ -130,21 +210,38 @@ public class Player {
     /* Health management */
 
     /* Mana management */
+
+    /**
+     *
+     * @param amount amount of mana to consume
+     */
     public void useMana(double amount) {
         PlayerStat mana = getStat(Stats.INTELLIGENCE);
         mana.setValue(Math.max(0, mana.getValue() - amount));
     }
 
+    /**
+     *
+     * @param amount amount of mana to regen
+     */
     public void regenMana(double amount) {
         PlayerStat mana = getStat(Stats.INTELLIGENCE);
         if (mana.getValue() >= mana.getMaxValue()) return;
         mana.setValue(Math.min(mana.getValue() + amount, mana.getMaxValue()));
     }
 
+    /**
+     *
+     * @return amount of mana player have
+     */
     public double getMana() {
         return getStat(Stats.INTELLIGENCE).getValue();
     }
 
+    /**
+     *
+     * @return maximum amout of mana player can have (for regen)
+     */
     public double getMaxMana() {
         return getStat(Stats.INTELLIGENCE).getMaxValue();
     }

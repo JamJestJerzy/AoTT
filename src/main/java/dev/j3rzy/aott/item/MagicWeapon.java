@@ -101,6 +101,10 @@ public class MagicWeapon extends Item {
         return item;
     }
 
+    /**
+     *
+     * @return item's ability
+     */
     public Ability getAbility() {
         return ability;
     }

@@ -21,9 +21,21 @@ public enum Stats {
     DAMAGE("Damage", "", ChatColor.RED, ChatColor.RED),
     GEAR_SCORE("Gear Score", "", ChatColor.GRAY, ChatColor.LIGHT_PURPLE);
 
+    /**
+     * Stat's name
+     */
     public final String name;
+    /**
+     * Stat's symbol
+     */
     public final String symbol;
+    /**
+     * Stat's name color
+     */
     public final ChatColor color;
+    /**
+     * Stat's value color
+     */
     public final ChatColor valueColor;
 
     Stats(String name, String symbol, ChatColor color, ChatColor valueColor) {

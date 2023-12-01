@@ -11,10 +11,19 @@ public class Players {
 
     public Players() {}
 
+    /**
+     *
+     * @param player player to register
+     */
     public void addPlayer(Player player) {
         players.add(player);
     }
 
+    /**
+     *
+     * @param playerEntity bukkitPlayer to get Player of
+     * @return Player object
+     */
     public Player getPlayer(org.bukkit.entity.Player playerEntity) {
         for (Player player : players) {
             if (player.getPlayer() == playerEntity) return player;
@@ -22,6 +31,10 @@ public class Players {
         return null;
     }
 
+    /**
+     *
+     * @return registered players
+     */
     public List<Player> getPlayers() {
         return players;
     }
