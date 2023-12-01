@@ -20,6 +20,7 @@ public class Items {
         items.add(new Fish());
         items.add(new Hyperion());
         items.add(new Stick());
+        items.add(new Gigarion());
     }
 
     public List<Item> getItems() {

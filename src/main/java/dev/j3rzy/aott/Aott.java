@@ -4,10 +4,7 @@ import static dev.j3rzy.aott.events.Scheduled.*;
 import static dev.j3rzy.aott.utils.Utils.log;
 import static dev.j3rzy.aott.utils.Utils.pm;
 
-import dev.j3rzy.aott.commands.aote;
-import dev.j3rzy.aott.commands.fish;
-import dev.j3rzy.aott.commands.hyperion;
-import dev.j3rzy.aott.commands.stick;
+import dev.j3rzy.aott.commands.*;
 import dev.j3rzy.aott.events.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,6 +28,7 @@ public final class Aott extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("hyperion")).setExecutor(new hyperion());
         Objects.requireNonNull(this.getCommand("stick")).setExecutor(new stick());
         Objects.requireNonNull(this.getCommand("fish")).setExecutor(new fish());
+        Objects.requireNonNull(this.getCommand("gigarion")).setExecutor(new gigarion());
 
         onceEveryTwoSeconds();
         onceASecond();

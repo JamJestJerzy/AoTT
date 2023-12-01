@@ -24,3 +24,7 @@ commands:
     description: Gives Water Impact fish
     usage: /<command>
     permission: aott.admin.fish
+  gigarion:
+    description: Gives Gigarion - Better hyperion for tests
+    usage: /<command>
+    permission: aott.admin.gigarion

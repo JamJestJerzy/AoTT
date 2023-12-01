@@ -9,10 +9,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Item {
     private final Material physicalItem;
@@ -43,27 +40,30 @@ public class Item {
 
         itemMeta.setDisplayName(rarity.color + name);
 
-        for (Stat stat : stats) {
-            /* Resetting stat value before applying gemstone boosts */
-            stat.resetValue();
+        List<Stat> boostedStats = getGemstoneBoostedStats();
+        Map<Stats, Integer> totalStatBoosts = new HashMap<>();
 
-            String gemstoneStatBoost = "";
-            int totalStatBoost = 0;
-            Set<GemstoneSlot> appliedSlots = new HashSet<>();
+        for (Stat stat : boostedStats) {
+            String statLine = ChatColor.GRAY + stat.stat.name + ": " + stat.stat.valueColor +
+                    ((stat.stat == Stats.GEAR_SCORE) ? "" : "+") + (int) stat.value;
 
+            // Accumulate total boost for each stat
             for (GemstoneSlot gemstoneSlot : gemstoneSlots) {
-                if (gemstoneSlot.getStatBoost(stat.stat) != null && !appliedSlots.contains(gemstoneSlot)) {
+                if (gemstoneSlot.getStatBoost(stat.stat) != null) {
                     int boostValue = (int) gemstoneSlot.getStatBoost(stat.stat).value;
-                    totalStatBoost += boostValue;
-                    stat.setValue(stat.value + boostValue);
-                    appliedSlots.add(gemstoneSlot);
+                    if (boostValue > 0) {
+                        totalStatBoosts.put(stat.stat, totalStatBoosts.getOrDefault(stat.stat, 0) + boostValue);
+                    }
                 }
             }
 
-            /* Applying gemstones */
-            lore.add(ChatColor.GRAY + stat.stat.name + ": " + stat.stat.valueColor +
-                    ((stat.stat == Stats.GEAR_SCORE) ? "" : "+") + (int) stat.value +
-                    ((totalStatBoost > 0) ? ChatColor.LIGHT_PURPLE + " (+" + totalStatBoost + ")" : ""));
+            // Check if the stat was boosted and display the total boost
+            if (totalStatBoosts.containsKey(stat.stat)) {
+                int totalBoost = totalStatBoosts.get(stat.stat);
+                statLine += ChatColor.LIGHT_PURPLE + " (+" + totalBoost + ")";
+            }
+
+            lore.add(statLine);
         }
 
         if (!gemstoneSlots.isEmpty()) {
@@ -120,5 +120,23 @@ public class Item {
 
     public List<GemstoneSlot> getGemstoneSlots() {
         return gemstoneSlots;
+    }
+
+    public List<Stat> getGemstoneBoostedStats() {
+        List<Stat> boostedStats = new ArrayList<>(stats); // Create a copy of stats to preserve original values
+
+        for (Stat stat : boostedStats) {
+            /* Resetting stat value before applying gemstone boosts */
+            stat.resetValue();
+
+            for (GemstoneSlot gemstoneSlot : gemstoneSlots) {
+                if (gemstoneSlot.getStatBoost(stat.stat) != null) {
+                    int boostValue = (int) gemstoneSlot.getStatBoost(stat.stat).value;
+                    stat.setValue(stat.value + boostValue);
+                }
+            }
+        }
+
+        return boostedStats;
     }
 }
