@@ -5,6 +5,7 @@ import dev.j3rzy.aott.item.Stat;
 import dev.j3rzy.aott.utils.MathUtils;
 import dev.j3rzy.aott.utils.PlayerUtils;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -146,8 +147,9 @@ public class Player {
     /**
      *
      * @param amount amount of damage to deal to player
+     * @param cause cause of the damage (event.getCause())
      */
-    public void dealDamage(double amount) {
+    public void dealDamage(double amount, EntityDamageEvent.DamageCause cause) {
         if (player.isDead()) return;
         PlayerStat health = getStat(Stats.HEALTH);
         double playerDefence = getStat(Stats.DEFENSE).getValue();

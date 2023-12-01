@@ -16,7 +16,7 @@ public class EntityDamageByBlock implements Listener {
             double damage = event.getDamage();
             event.setDamage(0);
             dev.j3rzy.aott.player.Player player = Players.INSTANCE.getPlayer(p);
-            player.dealDamage(damage);
+            player.dealDamage(damage, event.getCause());
         }
     }
 }
