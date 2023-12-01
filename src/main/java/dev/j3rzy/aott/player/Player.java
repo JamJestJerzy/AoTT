@@ -150,24 +150,3 @@ public class Player {
     }
     /* Mana management */
 }
-
-/*
-    private Stat health;
-    private Stat defense;
-    private Stat strength;
-    private Stat intelligence;
-    private Stat critChance;
-    private Stat critDamage;
-    private Stat bonusAttackSpeed;
-    private Stat abilityDamage;
-    private Stat healthRegen;
-    private Stat vitality;
-    private Stat mending;
-    private Stat trueDefence;
-    private Stat swingRange;
-
-    this.health = new Stat(Stats.HEALTH, 100);
-    this.defense = new Stat(Stats.DEFENSE, 0);
-    this.strength = new Stat(Stats.STRENGTH, 0);
-    this.intelligence = new Stat(Stats.INTELLIGENCE, 100);
-    */
