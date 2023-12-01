@@ -14,7 +14,7 @@ public class fish implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) return false;
 
-        player.getInventory().addItem(Items.INSTANCE.getItem(new Fish()).getItem());
+        player.getInventory().addItem(Items.INSTANCE.getItem(Fish.class).getItem());
 
         return true;
     }

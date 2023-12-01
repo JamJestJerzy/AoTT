@@ -12,7 +12,7 @@ public class aote implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) return false;
 
-        player.getInventory().addItem(Items.INSTANCE.getItem(new AspectOfTheEnd()).getItem());
+        player.getInventory().addItem(Items.INSTANCE.getItem(AspectOfTheEnd.class).getItem());
 
         return true;
     }

@@ -14,7 +14,7 @@ public class stick implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) return false;
 
-        player.getInventory().addItem(Items.INSTANCE.getItem(new Stick()).getItem());
+        player.getInventory().addItem(Items.INSTANCE.getItem(Stick.class).getItem());
 
         return true;
     }
