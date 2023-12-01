@@ -162,6 +162,7 @@ public class Player {
         if (finalDamage > 0) health.setValue(Math.max(0, health.getValue() - finalDamage));
         updateVanillaHealth();
         updateVanillaAbsorption();
+        PlayerUtils.updateActionBarStats(this);
     }
 
     /**
@@ -174,6 +175,7 @@ public class Player {
         if (health.getValue() >= health.getMaxValue()) return;
         health.setValue(Math.min(health.getValue() + amount, health.getMaxValue()));
         updateVanillaHealth();
+        PlayerUtils.updateActionBarStats(this);
     }
 
     /**
@@ -196,9 +198,8 @@ public class Player {
      * Updates vanilla health bar with custom amounts
      */
     public void updateVanillaHealth() {
-        double scaledHealth = getMaxHealth()/5;
-        player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(MathUtils.roundDownToMultipleOf(5, scaledHealth));
-        player.setHealth(MathUtils.roundDownToMultipleOf(5, getHealth()/5));
+        player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getMaxHealth()/5);
+        player.setHealth(getHealth()/5);
         PlayerUtils.updateActionBarStats(this);
     }
 

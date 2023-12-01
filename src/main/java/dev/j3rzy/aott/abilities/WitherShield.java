@@ -61,7 +61,7 @@ public class WitherShield extends Ability {
         }},5000);
         player.addAbsorption(absorptionAmount);
         new java.util.Timer().schedule(new java.util.TimerTask(){@Override public void run(){
-            double absorptionRemoved = Math.max(player.getAbsorptionAmount(), absorptionAmount);
+            double absorptionRemoved = Math.min(player.getAbsorptionAmount(), absorptionAmount);
             player.removeAbsorption(absorptionRemoved);
             player.heal(absorptionRemoved * 0.5);
         }},5000);
